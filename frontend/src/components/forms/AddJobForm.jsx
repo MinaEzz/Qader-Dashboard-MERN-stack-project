@@ -4,21 +4,19 @@ import "react-toastify/dist/ReactToastify.css";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 import Loader from "../shared/Loader";
-import { validateProductForm } from "../../utils/validation";
 import { useNavigate } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
-const AddProductForm = () => {
+const AddJobForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    price: "",
-    categoryName: "",
-    image: "",
+    location: "",
+    expectedSalary: "",
+    applyLink: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,10 +26,9 @@ const AddProductForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateProductForm(formData)) return;
     setIsLoading(true);
     try {
-      const response = await fetch(BASE_URL + "/api/products", {
+      const response = await fetch(BASE_URL + "/api/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,15 +37,15 @@ const AddProductForm = () => {
       });
       const responseData = await response.json();
       if (response.ok) {
-        toast.success("Product added successfully");
+        toast.success("Job added successfully");
         setFormData({
           title: "",
           description: "",
-          price: "",
-          categoryName: "",
-          image: "",
+          location: "",
+          expectedSalary: "",
+          applyLink: "",
         });
-        navigate("/dashboard/products");
+        navigate("/dashboard/jobs");
       } else {
         toast.error(responseData?.message);
       }
@@ -58,6 +55,7 @@ const AddProductForm = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <>
       <ToastContainer theme="colored" />
@@ -75,43 +73,43 @@ const AddProductForm = () => {
             name={"title"}
             value={formData?.title}
             onChange={handleChange}
-            placeholder={"Product Name"}
-          />
-          <Input
-            element={"input"}
-            type={"text"}
-            name={"categoryName"}
-            value={formData?.categoryName}
-            onChange={handleChange}
-            placeholder={"Product Category"}
+            placeholder={"Job Title"}
           />
           <Input
             name={"description"}
             value={formData?.description}
             onChange={handleChange}
-            placeholder={"Product Description"}
-          />
-          <Input
-            element={"input"}
-            type={"number"}
-            name={"price"}
-            value={formData?.price}
-            onChange={handleChange}
-            placeholder={"Price"}
+            placeholder={"Job Description"}
           />
           <Input
             element={"input"}
             type={"text"}
-            name={"image"}
-            value={formData?.image}
+            name={"location"}
+            value={formData?.location}
             onChange={handleChange}
-            placeholder={"Product Image"}
+            placeholder={"Location"}
           />
-          <Button type={"submit"} label={"add product"} />
+          <Input
+            element={"input"}
+            type={"number"}
+            name={"expectedSalary"}
+            value={formData?.expectedSalary}
+            onChange={handleChange}
+            placeholder={"Exp. Salary"}
+          />
+          <Input
+            element={"input"}
+            type={"text"}
+            name={"applyLink"}
+            value={formData?.applyLink}
+            onChange={handleChange}
+            placeholder={"Apply Link"}
+          />
+          <Button type={"submit"} label={"add job"} />
         </form>
       )}
     </>
   );
 };
 
-export default AddProductForm;
+export default AddJobForm;

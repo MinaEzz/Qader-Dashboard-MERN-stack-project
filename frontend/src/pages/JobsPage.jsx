@@ -1,5 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
-import { Button, Loader, DataTable } from "../components";
+import {
+  Button,
+  Loader,
+  DataTable,
+  EditJobModal,
+  DeleteJobModal,
+} from "../components";
 import { IoAddSharp } from "react-icons/io5";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,6 +14,11 @@ const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 const JobsPage = () => {
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const closeEditModal = () => setIsEditModalOpen(false);
+  const closeDeleteModal = () => setIsDeleteModalOpen(false);
   const columns = useMemo(
     () => [
       {
@@ -68,8 +79,27 @@ const JobsPage = () => {
           <DataTable
             columns={columns}
             data={jobs}
-            onDelete={"handleDeleteProduct"}
             showEdit={true}
+            setIsEditModalOpen={setIsEditModalOpen}
+            setIsDeleteModalOpen={setIsDeleteModalOpen}
+            onEdit={(job) => setSelectedJob(job)}
+            onDelete={(job) => setSelectedJob(job)}
+          />
+        )}
+        {isEditModalOpen && (
+          <EditJobModal
+            job={selectedJob}
+            open={isEditModalOpen}
+            close={closeEditModal}
+          />
+        )}
+        {isDeleteModalOpen && (
+          <DeleteJobModal
+            jobId={selectedJob}
+            open={isDeleteModalOpen}
+            close={closeDeleteModal}
+            jobs={jobs}
+            setJobs={setJobs}
           />
         )}
       </section>

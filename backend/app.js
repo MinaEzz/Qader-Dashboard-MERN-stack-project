@@ -10,9 +10,7 @@ const productsRouter = require("./routes/products.routes.js");
 const jobRouter = require("./routes/job.routes.js")
 const disapilityTypesRouter = require("./routes/disability-Types.routes.js")
 
-
 const { ERROR } = require("./utils/httpStatusText.js");
-
 
 const mongoose = require("mongoose");
 const url = process.env.MONGO_URL;
@@ -38,9 +36,6 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/jobs", jobRouter);
 app.use("/api/disability", disapilityTypesRouter);
-
-
-
 
 // global middleware for Not Found router
 app.all("*", (req, res, next) => {

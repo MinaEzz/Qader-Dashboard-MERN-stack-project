@@ -42,7 +42,6 @@ const EditProductModal = ({ open, close, product }) => {
         }, 1500);
       } else {
         toast.error(responseData?.message);
-        console.error("Error response:", responseData);
       }
     } catch (err) {
       toast.error(err?.message || "Something Went Wrong, Please Try Again.");

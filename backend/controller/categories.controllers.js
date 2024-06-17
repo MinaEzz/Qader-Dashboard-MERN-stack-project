@@ -67,8 +67,8 @@ const updateCategory = async (req, res, next) => {
   const body = req.body;
   try {
     let updatedCategory = await Category.findByIdAndUpdate(categoryId, {
-      $set: { ...body },
-    });
+      $set: { ...body }
+    }, {new: true});
     if (!updatedCategory) {
       const error = new Error("Category Not Found.");
       error.status = FAIL;

@@ -6,11 +6,15 @@ import "react-toastify/dist/ReactToastify.css";
 import Input from "../../shared/Input";
 const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
-const EditCategoryModal = ({ open, close, category }) => {
+const EditJobModal = ({ open, close, job }) => {
+  console.log(job);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: category?.name || "",
-    description: category?.description || "",
+    title: job?.title || "",
+    description: job?.description || "",
+    location: job?.location || "",
+    expectedSalary: job?.expectedSalary || "",
+    applyLink: job?.applyLink || "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,23 +23,21 @@ const EditCategoryModal = ({ open, close, category }) => {
       [name]: value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch(
-        BASE_URL + `/api/categories/${category?._id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(BASE_URL + `/api/jobs/${job?._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       const responseData = await response.json();
       if (response.ok) {
-        toast.success("category updated successfully.");
+        toast.success("Job updated successfully.");
         setTimeout(() => {
           window.location.reload();
         }, 1500);
@@ -64,23 +66,23 @@ const EditCategoryModal = ({ open, close, category }) => {
             ) : (
               <>
                 <h3 className="text-primary-600 text-3xl  capitalize font-medium">
-                  edit category
+                  edit job
                 </h3>
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                   <div className="flex flex-col gap-2">
                     <label
                       className="text-md capitalize text-black"
-                      htmlFor="name"
+                      htmlFor="title"
                     >
-                      Category Name
+                      job title
                     </label>
                     <Input
                       element={"input"}
                       type={"text"}
-                      name={"name"}
-                      id={"name"}
-                      placeholder={"Category Name"}
-                      value={formData?.name}
+                      name={"title"}
+                      id={"title"}
+                      placeholder={"Job Title"}
+                      value={formData?.title}
                       onChange={handleChange}
                     />
                   </div>
@@ -89,17 +91,67 @@ const EditCategoryModal = ({ open, close, category }) => {
                       className="text-md capitalize text-black"
                       htmlFor="description"
                     >
-                      Category Description
+                      job description
                     </label>
                     <Input
                       name={"description"}
                       id={"description"}
-                      placeholder={"Category Description"}
+                      placeholder={"Job Description"}
                       value={formData?.description}
                       onChange={handleChange}
                     />
                   </div>
-
+                  <div className="flex flex-col gap-2">
+                    <label
+                      className="text-md capitalize text-black"
+                      htmlFor="location"
+                    >
+                      location
+                    </label>
+                    <Input
+                      element={"input"}
+                      type={"text"}
+                      name={"location"}
+                      id={"location"}
+                      placeholder={"Location"}
+                      value={formData?.location}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      className="text-md capitalize text-black"
+                      htmlFor="expectedSalary"
+                    >
+                      expected salary
+                    </label>
+                    <Input
+                      element={"input"}
+                      type={"number"}
+                      name={"expectedSalary"}
+                      id={"expectedSalary"}
+                      placeholder={"Expected Salary"}
+                      value={formData?.expectedSalary}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      className="text-md capitalize text-black"
+                      htmlFor="applyLink"
+                    >
+                      apply link
+                    </label>
+                    <Input
+                      element={"input"}
+                      type={"text"}
+                      name={"applyLink"}
+                      id={"applyLink"}
+                      placeholder={"Apply Link"}
+                      value={formData?.applyLink}
+                      onChange={handleChange}
+                    />
+                  </div>
                   <div className="flex max-lg:flex-col justify-center items-center gap-4">
                     <Button
                       label={"cancel"}
@@ -130,4 +182,4 @@ const EditCategoryModal = ({ open, close, category }) => {
   );
 };
 
-export default EditCategoryModal;
+export default EditJobModal;

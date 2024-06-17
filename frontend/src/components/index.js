@@ -4,6 +4,7 @@ import TransactionChart from "./dashboard/TransactionChart";
 import LoginForm from "./forms/LoginForm";
 import AddProductForm from "./forms/AddProductForm";
 import AddCategoryForm from "./forms/AddCategoryForm"
+import AddJobForm from "./forms/AddJobForm";
 import Loader from "./shared/Loader";
 import Button from "./shared/Button";
 import Input from "./shared/Input";
@@ -19,6 +20,8 @@ import EditCategoryModal from "./modals/categories/EditCategoryModal";
 import DeleteCategoryModal from "./modals/categories/DeleteCategoryModal";
 import DeleteAllUsersModal from "./modals/users/DeleteAllUsersModal";
 import DeleteUserModal from "./modals/users/DeleteUserModal";
+import EditJobModal from './modals/jobs/EditJobModal';
+import DeleteJobModal from './modals/jobs/DeleteJobModal';
 
 
 
@@ -30,6 +33,7 @@ export {
   LoginForm,
   AddProductForm,
   AddCategoryForm,
+  AddJobForm,
   Input,
   Button,
   DataTable,
@@ -44,5 +48,7 @@ export {
   EditCategoryModal,
   DeleteCategoryModal,
   DeleteAllUsersModal,
-  DeleteUserModal
+  DeleteUserModal,
+  EditJobModal,
+  DeleteJobModal
 };
