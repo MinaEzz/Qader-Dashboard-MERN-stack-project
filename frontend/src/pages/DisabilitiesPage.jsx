@@ -39,6 +39,8 @@ const DisabilitiesPage = () => {
       }
     };
     fetchDisabilities();
+    document.title = "Disabilities";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

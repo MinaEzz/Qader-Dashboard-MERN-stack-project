@@ -55,6 +55,8 @@ const CategoriesPage = () => {
       }
     };
     fetchCategories();
+    document.title = "Categories";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

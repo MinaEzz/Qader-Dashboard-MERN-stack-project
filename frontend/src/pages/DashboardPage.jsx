@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { STATES } from "../constants";
 import { BuyerProfileChart, StateCard, TransactionChart } from "../components";
 const DashboardPage = () => {
+  useEffect(() => {
+    document.title = "Dashboard";
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <section className="w-full flex flex-1 flex-col gap-4">
       <section className="w-full flex gap-4">

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 // create schema
 const jobSchema = new mongoose.Schema({
     title: {
@@ -29,5 +28,4 @@ const jobSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 // create model
-
 module.exports = mongoose.model("Job", jobSchema)

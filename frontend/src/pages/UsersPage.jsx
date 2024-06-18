@@ -78,6 +78,8 @@ const UsersPage = () => {
       }
     };
     fetchUsers();
+    document.title = "Users";
+    window.scrollTo(0, 0);
   }, []);
   return (
     <>

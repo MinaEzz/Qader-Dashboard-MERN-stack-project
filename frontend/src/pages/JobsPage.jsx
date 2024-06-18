@@ -59,6 +59,8 @@ const JobsPage = () => {
       }
     };
     fetchJobs();
+    document.title = "Jobs";
+    window.scrollTo(0, 0);
   }, []);
 
   return (

@@ -6,9 +6,4 @@ router.route("/").get(getAllJobs).post(addJob)
 router.route("/:jobId").patch(updateJob).delete(deleteJob)
 
 
-
-
-
 module.exports = router;
-
-
